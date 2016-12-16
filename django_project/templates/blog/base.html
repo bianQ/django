@@ -1,0 +1,40 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<script src="{% static 'blog/jquery.js' %}"></script>
+<script src="{% static 'blog/jquery.kkPages.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+<style>
+    body{ margin:0; padding:0; font-family:"微软雅黑"; background-color:white;}
+    ul{ margin:0; padding:0;}
+    dl,dt,dd{ margin:0; padding:0;}
+    li{ list-style:none;}
+    a{ text-decoration:none;}
+</style>
+<meta charset="utf-8">
+<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+
+
+<script>
+$(".post_box_nav li").click(function(){
+	var x=$(this).index()
+		$(".post_box_title").eq(x).show().siblings(".post_box_title").hide()
+	$(this).addClass("bg1").siblings(".post_box_nav li").removeClass("bg1")
+	})
+
+	$(".data_nav li").click(function(){
+	var x=$(this).index()
+		$(".data_main").eq(x).show().siblings(".data_main").hide()
+	$(this).addClass("bg2").siblings(".data_nav li").removeClass("bg2")
+	})
+</script>
+{% endblock %}
+</body>
+</html>

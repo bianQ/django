@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Alan's Blog{% endblock %}
+
+{% block body %}
+
+{% include 'blog/_header.html' %}
+
+<div class="bg-img">
+{% if request.user.is_authenticated %}
+    Hello {{ request.user }}
+{% else %}
+    welcome to my blog
+{% endif %}
+</div>
+<div class="clearfixrr"></div>
+
+<div class="mainrr">
+    <div class="mainrr_left">
+        <div class="post">
+            <div class="post_box">
+                <ul class="post_box_nav">
+                    <li class="bg1">最新动态</li>
+                    <div class="clearfixrr"></div>
+                </ul>
+                <div class="post_box_title">
+                    <ul>
+                    {% if posts %}
+                    {% for post in posts %}
+                        <li>
+                            <div><a href="{% url 'blog:article' post.id %}">{{ post.title }}</a></div>
+                            <span>{{ post.pub_date }}</span>
+                        </li>
+                    {% endfor %}
+                    {% else %}
+                    <a>没有内容可显示</a>
+                    {% endif %}
+                    </ul>
+                </div>
+                <div class="clearrr"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'blog/_page.html' %}
+
+{% endblock %}
