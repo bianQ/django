@@ -1,0 +1,4 @@
+Django==1.10.1
+itsdangerous==0.24
+PyMySQL==0.7.9
+requests==2.12.3
