@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 
-import os
 import shlex
 import time
 from smtplib import SMTP, SMTP_SSL
 import pymysql
 
-basedir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def bash(cmd):
     return shlex.os.system(cmd)
@@ -76,8 +74,8 @@ class Setup(object):
                     self.db = db
                 color_print('安装程序将在5秒后自动创建%s数据库', 'green')
                 time.sleep(5)
-                bash('mysql -e "create database %s default charset=utf8"' % self.db)
-                bash('mysql -e "grant all on %s.* to \'%s\'@\'%s\' identified by \'%s\'"' % (
+                bash('mysql -u %s -p%s -e "create database %s default charset=utf8"' % (self.db_user, self.db_passwd, self.db))
+                bash('mysql -u %s -p%s -e "grant all on %s.* to \'%s\'@\'%s\' identified by \'%s\'"' % (self.db_user, self.db_passwd,
                 self.db, self.db_user, self.db_host, self.db_passwd))
                 color_print('开始写入django配置文件', 'green')
                 bash('sh set_mysql.sh %s %s %s %s' % (self.db_host, self.db_user, self.db_passwd, self.db))
@@ -144,7 +142,6 @@ class Setup(object):
         self._input_mysql()
         self._input_smtp()
         self._alter_django()
-        os.system('python3 %s' % os.path.join(basedir, 'django_project/manage.py'))
 
 if __name__ == '__main__':
     setup = Setup()

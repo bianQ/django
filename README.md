@@ -33,7 +33,7 @@
       
     python3 manage.py migrate  
       
-    python3 manage.py runserver
+    python3 manage.py runserver $ip:$port  #写本机IP及自定义端口号
     
 打开浏览器访问，例如: http://127.0.0.1:8000
 
