@@ -1,48 +1,29 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% block head %}
+    {{ block.super }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Alan">
 
-{% block title %}Alan's Blog{% endblock %}
+
+{% endblock %}
 
 {% block body %}
 
 {% include 'blog/_header.html' %}
 
-<div class="bg-img">
-{% if request.user.is_authenticated %}
-    Hello {{ request.user }}
-{% else %}
-    welcome to my blog
-{% endif %}
-</div>
-<div class="clearfixrr"></div>
-
-<div class="mainrr">
-    <div class="mainrr_left">
-        <div class="post">
-            <div class="post_box">
-                <ul class="post_box_nav">
-                    <li class="bg1">最新动态</li>
-                    <div class="clearfixrr"></div>
-                </ul>
-                <div class="post_box_title">
-                    <ul>
-                    {% if posts %}
-                    {% for post in posts %}
-                        <li>
-                            <div><a href="{% url 'blog:article' post.id %}">{{ post.title }}</a></div>
-                            <span>{{ post.pub_date }}</span>
-                        </li>
-                    {% endfor %}
-                    {% else %}
-                    <a>没有内容可显示</a>
-                    {% endif %}
-                    </ul>
-                </div>
-                <div class="clearrr"></div>
-            </div>
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="intro-lead-in">Welcome To My Space!</div>
+            <div class="intro-heading">It's Nice To Meet You</div>
+            <a href="{% url 'blog:register' %}" class="page-scroll btn btn-xl">Sign Up</a>
         </div>
     </div>
-</div>
-{% include 'blog/_page.html' %}
+</header>
 
 {% endblock %}

@@ -24,7 +24,7 @@
             <a href="{% url 'blog:register' %}">立即注册</a>
         </div>
         {% if login_error %}
-            {{ login_error }}
+        <span>{{ login_error }}</span>
         {% endif %}
     </form>
 </div>

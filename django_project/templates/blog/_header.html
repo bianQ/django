@@ -1,48 +1,45 @@
 {% load static %}
-<div class="header">
-    <div class="header_box">
-        <div class="header_box_left">
-            <ul>
-                <li><img src="{% static 'blog/images/logo.png' %}"></li>
-                <li>Alan's Blog</li>
-            </ul>
-        </div>
-        <div class="header_box_right1">
-            <ul>
-                {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'blog:logout' %}">注销</a></li>
-                {% else %}
-                    <li><a href="{% url 'blog:login' %}">登录</a></li>
-                    <li>|</li>
-                    <li><a href="{% url 'blog:register' %}">注册</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        <div class="header_box_right2">
-            <ul>
-                <li class="border"><img src="{% static 'blog/images/search.png' %}">
-                <div class="hide">
-                    <ul>
-                        <li><input type="text"></li>
-                        <li><button></button></li>
-                        <div class="clearfix"></div>
-                    </ul>
-                </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+
+<!-- Navigation -->
+<div class="header_bg" id="home"><!-- start header -->
+
+	<div class="row text-center specials">
+		<nav class="top-nav">
+			<div class="navbar-header page-scroll">
+			<a class="navbar-brand page-scroll" href="https://github.com/bianQ/django">Github</a>
+			</div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+					{% if request.user.is_authenticated %}
+                    <li>
+                        <a class="page-scroll" href="{% url 'blog:profile' request.user.username %}">Home</a>
+                    </li>
+					{% else %}
+					<li>
+                        <a class="page-scroll" href="{% url 'blog:index' %}">Home</a>
+                    </li>
+					{% endif %}
+                    <li>
+                        <a class="page-scroll" href="{% url 'blog:list' %}">Blog</a>
+                    </li>
+					{% if request.user.is_authenticated %}
+					<li>
+                        <a class="page-scroll" href="{% url 'blog:profile' request.user.username %}">Profile</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{% url 'blog:logout' %}">Sign Out</a>
+                    </li>
+					{% else %}
+					<li>
+                        <a class="page-scroll" href="{% url 'blog:login' %}">Sign In</a>
+                    </li>
+					{% endif %}
+                </ul>
+			<a href="#" id="pull"><img src="images/nav-icon.png" title="menu" /></a>
+		</nav>
+		<div class="clearfix"></div>
+	</div>
 </div>
 
-<div class="navrr">
-    <div class="navrr_box">
-        <ul>
-            <li><a href="{% url 'blog:index' %}">首页</a></li>
-            <li><a href="{% url 'blog:index' %}">博客</a></li>
-            {% if request.user.is_authenticated %}
-                <li><a href="{% url 'blog:profile' request.user.username %}">个人信息</a></li>
-            {% endif %}
-            <div class="clearfix"></div>
-        </ul>
-    </div>
-</div>

@@ -1,40 +1,22 @@
 {% extends 'blog/base.html' %}
 
-{% include 'blog/_header.html' %}
-
 {% block title %}{{ blog.title }}{% endblock %}
 
 {% block body %}
 
 {% include 'blog/_header.html' %}
-<div class="user">
-    <ul class="user_left">
-        <a href="{% url 'blog:profile' blog.author %}">
-            <img src="{{ blog.profile.gravatar }}">
-        </a>
-    </ul>
-    <ul class="user_left">
-        <a href="{% url 'blog:profile' blog.author %}">
-            <li>{{ request.user.username }}</li>
-        </a>
-        {% if userprofile.location %}
-        <li><a href="{% url 'blog:getmap' userprofile.location %}" target="_blank">{{ userprofile.location }}</a></li>
-        {% endif %}
-        <li style="width:800px; background-color:#f0f0f0; height:1px;"></li>
-    </ul>
-    <ul class="user_right">
-        <li><a href="">关注</a></li>
-        <li><a href="">发私信</a></li>
-    </ul>
-</div>
+
 <div class="content-body">
     <div class="container">
         <div class="row">
-            <main class="col-md-9">
+            <main class="col-md-13">
                 <article class="post post-1 typo">
-                    <header class="entry-header">
+                    <header_blog class="entry-header"> <!-- 避免样式冲突，重命名blog.css的header为header_blog -->
                         <h1 class="entry-title">{{ blog.title }}</h1>
                         <div class="entry-meta">
+                            {% if blog.author %}
+                            <span class="user_left"> <a href="{% url 'blog:profile' blog.author %}"> <img src="{{ blog.profile.gravatar }}"></a></span>
+                            {% endif %}
                             <span class="post-date">
                                 <time class="entry-date"
                                       datetime="2016年8月21日 12:41">{{ blog.pub_date }}
@@ -43,14 +25,10 @@
                             {% if blog.author %}
                             <span class="post-author"><a href="{% url 'blog:profile' blog.author %}">{{ blog.author }}</a></span>
                             {% endif %}
-                            {% if comments %}
                             <span class="comments-link">{{ comments.count }} 评论</span>
-                            {% else %}
-                            <span class="comments-link">{{ comments.count }} 评论</span>
-                            {% endif %}
                             <span class="post-views">{{ blog.read }} 阅读</span>
                         </div>
-                    </header>
+                    </header_blog>
                     <div class="entry-content clearfix">
                         {{ blog.body }}
                         <div class="clearfix"></div>

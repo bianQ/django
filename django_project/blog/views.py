@@ -14,8 +14,11 @@ from .Token import token_confirm
 import requests, re
 
 def index(request):
+    return render(request, 'blog/index.html')
+
+def list(request):
     posts = Blog.objects.order_by('-pub_date')[:6]
-    return render(request, 'blog/index.html', {'posts':posts, 'lenth':len(posts)})
+    return render(request, 'blog/blog.html', {'posts':posts, 'lenth':len(posts)})
 
 #登陆
 def login(request):
@@ -28,6 +31,7 @@ def login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = auth.authenticate(username=username, password=password)
+            print(user)
             if user :
                 auth.login(request, user)
                 return render(request, 'blog/profile.html')
