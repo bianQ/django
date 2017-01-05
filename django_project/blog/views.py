@@ -35,7 +35,8 @@ def login(request):
             print(user)
             if user :
                 auth.login(request, user)
-                return render(request, 'blog/profile.html')
+                profile = user.userprofile_set.get()
+                return render(request, 'blog/profile.html', {'userprofile':profile})
             else:
                 login_error = 'Username or password error'
                 return render(request, 'blog/login.html', {'form': form, 'login_error':login_error})
