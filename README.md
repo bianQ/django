@@ -42,6 +42,8 @@
 >安装uwsgi
 
     pip3 install uwsgi  
+      
+    ln -s /usr/local/python3.5/bin/uwsgi /usr/bin/uwsgi
     
 >配置uwsgi
 

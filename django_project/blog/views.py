@@ -210,7 +210,8 @@ def createblog(request, username):
             profile_id = UserProfile.objects.get(user=user).id
             blog = Blog.objects.create(author_id=user.id, profile_id=profile_id, title=title, body=body)
             blog.save()
-            return render(request, 'blog/article.html', {'blog':blog})
+            comment_form = CommentForm()
+            return render(request, 'blog/article.html', {'blog':blog, 'form':comment_form})
         return render(request, 'blog/createblog.html', {'form':form})
 
 def getmap(request, location):

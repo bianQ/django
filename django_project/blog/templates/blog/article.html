@@ -9,7 +9,7 @@
 <div class="content-body">
     <div class="container">
         <div class="row">
-            <main class="col-md-13">
+            <main class="col-md-9">
                 <article class="post post-1 typo">
                     <header_blog class="entry-header"> <!-- 避免样式冲突，重命名blog.css的header为header_blog -->
                         <h1 class="entry-title">{{ blog.title }}</h1>
@@ -31,10 +31,10 @@
                     </header_blog>
                     <div class="entry-content clearfix">
                         {{ blog.body }}
-                        <div class="clearfix"></div>
-                    </div>
+
+                    </div> <div class="clearfix"></div>
                 </article>
-                <form id="comment-form" method="post">
+                <form style="margin-top:500px;" id="comment-form" method="post">
                     {{ form }}
                     <input type="submit" value="回复">
                 </form>
@@ -48,7 +48,6 @@
                     <div class="comment-content">
                      {{ comment.body }}
                     </div>
-
                     {% endfor %}
                     {% endif %}
                 </div>
