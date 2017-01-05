@@ -2,8 +2,9 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 
 # Create your views here.
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from .models import Blog, UserProfile, Comment
 from django.conf import settings as django_setting
 from django.core.mail import send_mail
@@ -183,12 +184,16 @@ def article(request, id):
     else:
         form = CommentForm(request.POST)
         if form.is_valid():
-            body = form.cleaned_data['comment']
-            profile_id = UserProfile.objects.get(user=request.user).id
-            comment = Comment.objects.create(blog_id=id, user_id=request.user.id, profile_id=profile_id, body=body)
-            comment.save()
-            new_comment = blog.comment_set.all().order_by('-pub_date').order_by('-pub_date')
-            return render(request, 'blog/article.html', {'blog':blog, 'form':form, 'comments':new_comment})
+            if not isinstance(request.user, AnonymousUser):
+                body = form.cleaned_data['comment']
+                profile_id = UserProfile.objects.get(user=request.user).id
+                comment = Comment.objects.create(blog_id=id, user_id=request.user.id, profile_id=profile_id, body=body)
+                comment.save()
+                new_comment = blog.comment_set.all().order_by('-pub_date').order_by('-pub_date')
+                return render(request, 'blog/article.html', {'blog':blog, 'form':form, 'comments':new_comment})
+            else:
+                form = LoginForm()
+                return render(request, 'blog/login.html', {'form':form})
         return render(request, 'blog/article.html', {'blog': blog, 'form': form, 'comments':commented})
 
 def createblog(request, username):
